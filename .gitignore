@@ -1,0 +1,7 @@
+/.idea
+/runtime
+/log
+/data
+/public/upload/file
+/public/upload/picture
+/app/database.php

@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-header">
+      <ob_link><a class="btn" href="{:url('groupAdd')}"><i class="fas fa-plus"></i> 新 增</a></ob_link>
+      <br/>
+  </div>
+    
+  <!-- /.card-header -->
+  <div class="card-body">
+    <table  class="table table-bordered table-hover table-striped text-nowrap">
+      <thead>
+      <tr>
+          <th>名称</th>
+          <th>描述</th>
+          <th>状态</th>
+          <th>操作</th>
+      </tr>
+      </thead>
+      
+      {notempty name='list'}
+        <tbody>
+            {volist name='list' id='vo'}
+                <tr>
+                  <td>{$vo.name}</td>
+                  <td>{$vo.describe}</td>
+                  <td>{$vo.status_text}</td>
+                  <td class="col-md-3 text-center">
+                      <ob_link><a href="{:url('menuAuth', array('id' => $vo['id']))}" class="btn"><i class="fas fa-reorder"></i> 菜单授权</a></ob_link>
+                      &nbsp;
+                      <ob_link><a href="{:url('groupEdit', array('id' => $vo['id']))}" class="btn"><i class="fas fa-edit"></i> 编辑</a></ob_link>
+                      &nbsp;
+                      <ob_link><a class="btn confirm ajax-get"  href="{:url('groupDel', array('id' => $vo['id']))}"><i class="fas fa-trash-alt"></i> 删 除</a></ob_link>
+                  </td>
+                </tr>
+            {/volist}
+        </tbody>
+        {else/}
+        <tbody><tr class="odd"><td colspan="4" class="text-center" valign="top">{:config('empty_list_describe')}</td></tr></tbody>
+      {/notempty}
+    </table>
+  </div>
+  <!-- /.card-body -->
+
+  <div class="card-footer clearfix text-center">
+      {$list->render()}
+  </div>
+
+</div>

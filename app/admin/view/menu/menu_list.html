@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+              <ob_link><a class="btn" href="{:url('menuAdd',array('pid' => $pid))}"><i class="fas fa-plus"></i> 新 增</a></ob_link>
+              <br/>
+            </div>
+            <!-- /.box-header -->
+
+            <div class="card-body">
+
+                <table class="table table-bordered table-hover table-striped text-nowrap">
+                  <thead>
+                  <tr>
+
+                      <th class="checkbox-select-all">
+                          <div class="icheck-primary d-inline ml-2">
+                              <input type="checkbox" name="ids" value="" id="checkbox-select-all" class="flat-grey js-checkbox-all" >
+                              <label for="checkbox-select-all"></label>
+                          </div>
+                      </th>
+                      <th>名称</th>
+                      <th>url</th>
+                      <th>图标</th>
+                      <th>隐藏</th>
+                      <th class="sort-th">排序</th>
+                      <th class="status-th">状态</th>
+                      <th>操作</th>
+                  </tr>
+                  </thead>
+
+                  {notempty name='list'}
+                    <tbody>
+                        {volist name='list' id='vo'}
+                            <tr>
+                              <td>
+                                  <div class="icheck-primary d-inline ml-2">
+                                      <input type="checkbox" value="" name="ids" value="{$vo.id}" id="id_{$vo.id}" class="flat-grey js-checkbox-all" >
+                                      <label for="id_{$vo.id}"></label>
+                                  </div>
+                              </td>
+                              <td>
+                                  <ob_link><a class="btn-frameless" href="{:url('menuList', array('pid' => $vo['id']))}">{$vo.name}</a></ob_link>
+                              </td>
+                              <td>{$vo.url}</td>
+                              <td>{$vo.icon}</td>
+                              <td>{$vo.is_hide_text}</td>
+                              <td><input type="text" class="sort-th sort-text" href="{:url('setSort')}" id="{$vo.id}" value="{$vo.sort}" /></td>
+                              <td><ob_link><a class="ajax-get" href="{:url('setStatus', array('ids' => $vo['id'], 'status' => (int)!$vo['status']))}">{$vo.status_text}</a></ob_link></td>
+                              <td class="col-md-3 text-center">
+                                  <a href="{:url('menuList',array('pid' => $vo['id']))}" class="btn"><i class="fas fa-bars"></i> 子菜单</a>
+                                  &nbsp;
+                                  <ob_link><a href="{:url('menuEdit',array('id' => $vo['id']))}" class="btn"><i class="fas fa-edit"></i> 编 辑</a></ob_link>
+                                  &nbsp;
+                                  <ob_link><a class="btn confirm ajax-get" href="{:url('setStatus', array('ids' => $vo['id'], 'status' => $Think.DATA_DELETE))}"><i class="fas fa-trash-alt"></i> 删 除</a></ob_link>
+                              </td>
+                            </tr>
+                        {/volist}
+                    </tbody>
+                    {else/}
+                    <tbody><tr class="odd"><td colspan="8" class="text-center" valign="top">{:config('empty_list_describe')}</td></tr></tbody>
+                  {/notempty}
+                </table>
+
+                {include file="layout/batch_btn_group"/}
+            </div>
+
+            <div class="card-footer clearfix text-center">
+                {$list->render()}
+            </div>
+        </div>
+    </div>
+</div>

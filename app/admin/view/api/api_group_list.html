@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <ob_link><a class="btn" href="{:url('apiGroupAdd')}"><i class="fas fa-plus"></i> 新 增</a></ob_link>
+                <br/>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover table-striped text-nowrap">
+                    <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>排序</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+
+                    {notempty name='list'}
+                    <tbody>
+                    {volist name='list' id='vo'}
+                    <tr>
+                        <td>{$vo.name}</td>
+                        <td>{$vo.sort}</td>
+                        <td class="col-md-2 text-center">
+                            <ob_link><a href="{:url('apiGroupEdit', array('id' => $vo['id']))}" class="btn"><i class="fas fa-edit"></i> 编 辑</a></ob_link>
+                            <ob_link><a class="btn confirm ajax-get" href="{:url('apiGroupDel', array('id' => $vo['id']))}"><i class="fas fa-trash-alt"></i> 删 除</a></ob_link>
+                        </td>
+                    </tr>
+                    {/volist}
+                    </tbody>
+                    {else/}
+                    <tbody>
+                    <tr class="odd">
+                        <td colspan="3" class="text-center" valign="top">{:config('empty_list_describe')}</td>
+                    </tr>
+                    </tbody>
+                    {/notempty}
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

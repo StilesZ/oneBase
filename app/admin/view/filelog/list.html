@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+              <div class="row search-form" style="width:99%;margin-left:1%;">
+
+                  <div class="input-group">
+<!--                      <input class="form-control start_date" name="start_date" placeholder="请选择开始时间" value="{$start_date}" type="text" readonly>-->
+<!--                      <input class="form-control end_date" name="end_date" placeholder="请选择结束时间" value="{$end_date}" type="text" readonly>-->
+<!--                      <span class="input-group-prepend">-->
+<!--                          <button type="button" id="search" url="{:url('lists',array('isexport'=>0))}" class="btn btn-default"><i class="fas fa-search"></i></button>-->
+<!--                      </span>-->
+
+                      <label class="col-sm-2 col-form-label">请选择开始时间</label>
+                      <div class="col-md-2">
+                         <input class="form-control start_date" name="start_date" placeholder="请选择开始时间" value="{$start_date}" type="text" readonly>
+                      </div>
+
+                      <label class="col-sm-2 col-form-label">请选择结束时间</label>
+                      <div class="col-md-2">
+                          <input class="form-control end_date" name="end_date" placeholder="请选择结束时间" value="{$end_date}" type="text" readonly>
+                      </div>
+                      <span class="input-group-prepend">
+                            <button type="button" id="search" url="{:url('lists',array('isexport'=>0))}" class="btn btn-default"><i class="fas fa-search"></i></button>
+                        </span>
+                  </div>
+
+<!--                  <div class="col-md-2">请选择开始时间-->
+<!--                      <input class="form-control start_date" name="start_date" placeholder="请选择开始时间" value="{$start_date}" type="text" readonly>-->
+<!--                  </div>-->
+<!--                  <div class="col-md-2">请选择结束时间-->
+<!--                      <input class="form-control end_date" name="end_date" placeholder="请选择结束时间" value="{$end_date}" type="text" readonly>-->
+<!--                  </div>-->
+<!--                  <div class="col-md-4">-->
+<!--                      <button type="button" id="search" url="{:url('lists',array('isexport'=>0))}" class="btn btn-default"><i class="fas fa-search"></i></button>-->
+<!--                  </div>-->
+              </div>
+            </div>
+
+            <div class="card-body">
+
+                <table class="table table-bordered table-hover table-striped text-nowrap">
+                    <thead>
+                    <tr>
+                        <th style="width:5%;">序号</th>
+                        <th style="width:10%;">文件名</th>
+                        <th style="width:20%;">路径</th>
+                        <th style="width:10%;">导入时间</th>
+                        <th style="width:10%;">操作人</th>
+                        <th style="width:10%;">导入情况</th>
+                        <th style="width:10%;">操作</th>
+                    </tr>
+                    </thead>
+
+                    {notempty name='list'}
+                      <tbody>
+                          {volist name='list' id='vo'}
+                              <tr>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.file_name|default=''}</td>
+                                <td>{$vo.path|default=''}</td>
+                                <td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                                <td>{$vo.username}</td>
+                                <td>成功：{$vo.success_num}，失败：{$vo.error_num}</td>
+                                <td>
+                                  <button class="btn" onclick="look_detail({$vo.id})">点击查看失败详情</button>
+                                </td>
+                              </tr>
+                          {/volist}
+                      </tbody>
+                      {else/}
+                      <tbody><tr class="odd"><td colspan="8" class="text-center" valign="top">{:config('empty_list_describe')}</td></tr></tbody>
+                    {/notempty}
+                  </table>
+            </div>
+            <div class="card-footer clearfix text-center">
+                {$list->render()}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">物流订单导入错误详情</h4>
+            </div>
+            <div class="modal-body" id="error_txt">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $('.start_date').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true
+        });
+        $('.end_date').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true
+        });
+    });
+</script>
+
+<script type="text/javascript">
+  function look_detail(log_id=0) {
+      if(log_id){
+          $.post("{:url('logDetail')}",{log_id:log_id},function(data){
+            $('#myModal').modal('show')
+            if(data.error_txt){
+              $('#error_txt').html(data.error_txt);
+            }else{
+              $('#error_txt').html("全部导入成功");
+            }
+          },'json');
+      }
+  }
+</script>

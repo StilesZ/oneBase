@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <ob_link><a class="btn" href="{:url('articleAdd')}"><i class="fas fa-plus"></i> 新 增</a></ob_link>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div class="card-tools search-form float-right">
+                            <div class="input-group input-group-sm" style="width: 200px;">
+                                <input type="text" name="search_data" class="form-control"
+                                       value="{:input('search_data')}" placeholder="支持标题|描述">
+                                <span class="input-group-append">
+                                <button type="button" id="search" url="{:url('articlelist')}"
+                                        class="btn btn-info btn-flat"><i class="fas fa-search"></i></button>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover table-striped text-nowrap">
+                    <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>描述</th>
+                        <th>挂载插件</th>
+                    </tr>
+                    </thead>
+                    {notempty name='list'}
+                    <tbody>
+                    {volist name='list' id='vo'}
+                    <tr>
+                        <td>{$vo.name}</td>
+                        <td>{$vo.describe}</td>
+                        <td>{$vo.addon_list}</td>
+                    </tr>
+                    {/volist}
+                    </tbody>
+                    {else/}
+                    <tbody>
+                    <tr class="odd">
+                        <td colspan="3" class="text-center" valign="top">{:config('empty_list_describe')}</td>
+                    </tr>
+                    </tbody>
+                    {/notempty}
+                </table>
+            </div>
+
+            <div class="card-footer clearfix text-center">
+                {$list->render()}
+            </div>
+        </div>
+    </div>
+</div>
