@@ -156,8 +156,8 @@ class AdminBase extends ControllerBase
         $title           = empty($this->title) ? '' : $this->title;
         
         $describe_html   = empty($describe)    ? '' : '<small>' . $describe . '</small>';
-        
-        return "<section class='content-header'><div class='container-fluid'><div class='row mb-2'><div class='col-sm-6'><input type='hidden' name='ob_title_hidden' id='ob_title_hidden' value='".$title."'/><h1>$title $describe_html</h1></div><div class='col-sm-6'>$this->crumbsView</div></div></div></section>";
+
+        return "<div class='container-fluid'><section class='content-header'><div class='container-fluid'><div class='row mb-2'><div class='col-sm-6'><input type='hidden' name='ob_title_hidden' id='ob_title_hidden' value='".$title."'/><h1>$title $describe_html</h1></div><div class='col-sm-6'>$this->crumbsView</div></div></div></section>";
     }
     
     /**
