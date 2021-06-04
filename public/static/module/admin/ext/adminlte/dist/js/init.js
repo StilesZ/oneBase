@@ -40,23 +40,23 @@
   ]
 
   $container.append(
-      '<h5>Customize AdminLTE</h5><hr class="mb-2"/>'
+      '<h5>界面开关</h5><hr class="mb-2"/>'
   )
 
-  var $no_border_checkbox = $('<input />', {
-    type   : 'checkbox',
-    value  : 1,
-    checked: $('.main-header').hasClass('border-bottom-0'),
-    'class': 'mr-1'
-  }).on('click', function () {
-    if ($(this).is(':checked')) {
-      $('.main-header').addClass('border-bottom-0')
-    } else {
-      $('.main-header').removeClass('border-bottom-0')
-    }
-  })
-  var $no_border_container = $('<div />', {'class': 'mb-1'}).append($no_border_checkbox).append('<span>No Navbar border</span>')
-  $container.append($no_border_container)
+  // var $no_border_checkbox = $('<input />', {
+  //   type   : 'checkbox',
+  //   value  : 1,
+  //   checked: $('.main-header').hasClass('border-bottom-0'),
+  //   'class': 'mr-1'
+  // }).on('click', function () {
+  //   if ($(this).is(':checked')) {
+  //     $('.main-header').addClass('border-bottom-0')
+  //   } else {
+  //     $('.main-header').removeClass('border-bottom-0')
+  //   }
+  // })
+  // var $no_border_container = $('<div />', {'class': 'mb-1'}).append($no_border_checkbox).append('<span>无导航栏边框</span>')
+  // $container.append($no_border_container)
 
   var $text_sm_body_checkbox = $('<input />', {
     type   : 'checkbox',
@@ -66,14 +66,17 @@
   }).on('click', function () {
     if ($(this).is(':checked')) {
       $('body').addClass('text-sm')
+      ob.store('body-text', 'text-sm');
     } else {
       $('body').removeClass('text-sm')
+      ob.store('body-text', '');
+
     }
   })
-  var $text_sm_body_container = $('<div />', {'class': 'mb-1'}).append($text_sm_body_checkbox).append('<span>Body small text</span>')
+  var $text_sm_body_container = $('<div />', {'class': 'mb-1'}).append($text_sm_body_checkbox).append('<span>页面小字体</span>')
   $container.append($text_sm_body_container)
 
-  var $text_sm_header_checkbox = $('<input />', {
+  /*var $text_sm_header_checkbox = $('<input />', {
     type   : 'checkbox',
     value  : 1,
     checked: $('.main-header').hasClass('text-sm'),
@@ -85,7 +88,7 @@
       $('.main-header').removeClass('text-sm')
     }
   })
-  var $text_sm_header_container = $('<div />', {'class': 'mb-1'}).append($text_sm_header_checkbox).append('<span>Navbar small text</span>')
+  var $text_sm_header_container = $('<div />', {'class': 'mb-1'}).append($text_sm_header_checkbox).append('<span>导航栏小字体</span>')
   $container.append($text_sm_header_container)
 
   var $text_sm_sidebar_checkbox = $('<input />', {
@@ -100,7 +103,7 @@
       $('.nav-sidebar').removeClass('text-sm')
     }
   })
-  var $text_sm_sidebar_container = $('<div />', {'class': 'mb-1'}).append($text_sm_sidebar_checkbox).append('<span>Sidebar nav small text</span>')
+  var $text_sm_sidebar_container = $('<div />', {'class': 'mb-1'}).append($text_sm_sidebar_checkbox).append('<span>菜单栏小字体</span>')
   $container.append($text_sm_sidebar_container)
 
   var $text_sm_footer_checkbox = $('<input />', {
@@ -115,10 +118,10 @@
       $('.main-footer').removeClass('text-sm')
     }
   })
-  var $text_sm_footer_container = $('<div />', {'class': 'mb-1'}).append($text_sm_footer_checkbox).append('<span>Footer small text</span>')
+  var $text_sm_footer_container = $('<div />', {'class': 'mb-1'}).append($text_sm_footer_checkbox).append('<span>页脚小字体</span>')
   $container.append($text_sm_footer_container)
-
-  var $flat_sidebar_checkbox = $('<input />', {
+*/
+  /*var $flat_sidebar_checkbox = $('<input />', {
     type   : 'checkbox',
     value  : 1,
     checked: $('.nav-sidebar').hasClass('nav-flat'),
@@ -192,23 +195,23 @@
   })
   var $no_expand_sidebar_container = $('<div />', {'class': 'mb-1'}).append($no_expand_sidebar_checkbox).append('<span>Main Sidebar disable hover/focus auto expand</span>')
   $container.append($no_expand_sidebar_container)
+*/
+  /*  var $text_sm_brand_checkbox = $('<input />', {
+      type   : 'checkbox',
+      value  : 1,
+      checked: $('.brand-link').hasClass('text-sm'),
+      'class': 'mr-1'
+    }).on('click', function () {
+      if ($(this).is(':checked')) {
+        $('.brand-link').addClass('text-sm')
+      } else {
+        $('.brand-link').removeClass('text-sm')
+      }
+    })
+    var $text_sm_brand_container = $('<div />', {'class': 'mb-4'}).append($text_sm_brand_checkbox).append('<span>LOGO小字体</span>')
+    $container.append($text_sm_brand_container)*/
 
-  var $text_sm_brand_checkbox = $('<input />', {
-    type   : 'checkbox',
-    value  : 1,
-    checked: $('.brand-link').hasClass('text-sm'),
-    'class': 'mr-1'
-  }).on('click', function () {
-    if ($(this).is(':checked')) {
-      $('.brand-link').addClass('text-sm')
-    } else {
-      $('.brand-link').removeClass('text-sm')
-    }
-  })
-  var $text_sm_brand_container = $('<div />', {'class': 'mb-4'}).append($text_sm_brand_checkbox).append('<span>Brand small text</span>')
-  $container.append($text_sm_brand_container)
-
-  $container.append('<h6>Navbar Variants</h6>')
+  $container.append('<h6>导航栏色系设置</h6>')
 
   var $navbar_variants        = $('<div />', {
     'class': 'd-flex'
@@ -229,6 +232,7 @@
     }
 
     $main_header.addClass(color)
+    ob.store('navbar-skins', color);
   })
 
   $navbar_variants.append($navbar_variants_colors)
@@ -237,6 +241,7 @@
 
   var sidebar_colors = [
     'bg-primary',
+    'bg-white',
     'bg-warning',
     'bg-info',
     'bg-danger',
@@ -251,7 +256,8 @@
     'bg-orange',
     'bg-lime',
     'bg-teal',
-    'bg-olive'
+    'bg-olive',
+    'bg-gray-dark'
   ]
 
   var accent_colors = [
@@ -290,6 +296,7 @@
     'sidebar-dark-lime',
     'sidebar-dark-teal',
     'sidebar-dark-olive',
+    'sidebar-dark-gray-dark',
     'sidebar-light-primary',
     'sidebar-light-warning',
     'sidebar-light-info',
@@ -305,10 +312,11 @@
     'sidebar-light-orange',
     'sidebar-light-lime',
     'sidebar-light-teal',
-    'sidebar-light-olive'
+    'sidebar-light-olive',
+    'sidebar-light-white',
   ]
 
-  $container.append('<h6>Accent Color Variants</h6>')
+  $container.append('<h6>事件超链接色系设置</h6>')
   var $accent_variants = $('<div />', {
     'class': 'd-flex'
   })
@@ -322,14 +330,16 @@
     })
 
     $body.addClass(accent_class)
+    ob.store('accent-color', accent_class);
+
   }))
 
-  $container.append('<h6>Dark Sidebar Variants</h6>')
+  $container.append('<h6>黑色菜单栏</h6>')
   var $sidebar_variants_dark = $('<div />', {
     'class': 'd-flex'
   })
   $container.append($sidebar_variants_dark)
-  $container.append(createSkinBlock(sidebar_colors, function () {
+  $container.append(createSkinBlock(['bg-gray-dark'], function () {
     var color         = $(this).data('color')
     var sidebar_class = 'sidebar-dark-' + color.replace('bg-', '')
     var $sidebar      = $('.main-sidebar')
@@ -338,14 +348,16 @@
     })
 
     $sidebar.addClass(sidebar_class)
+    ob.store('sidebar_skins', sidebar_class);
+
   }))
 
-  $container.append('<h6>Light Sidebar Variants</h6>')
+  $container.append('<h6>白色菜单栏</h6>')
   var $sidebar_variants_light = $('<div />', {
     'class': 'd-flex'
   })
   $container.append($sidebar_variants_light)
-  $container.append(createSkinBlock(sidebar_colors, function () {
+  $container.append(createSkinBlock(['bg-white'], function () {
     var color         = $(this).data('color')
     var sidebar_class = 'sidebar-light-' + color.replace('bg-', '')
     var $sidebar      = $('.main-sidebar')
@@ -354,10 +366,12 @@
     })
 
     $sidebar.addClass(sidebar_class)
+    ob.store('sidebar_skins', sidebar_class);
+
   }))
 
-  var logo_skins = navbar_all_colors
-  $container.append('<h6>Brand Logo Variants</h6>')
+  /*var logo_skins = navbar_all_colors
+  $container.append('<h6>Logo色系设置</h6>')
   var $logo_variants = $('<div />', {
     'class': 'd-flex'
   })
@@ -377,7 +391,7 @@
       $logo.removeClass(skin)
     })
     $logo.addClass(color)
-  }).append($clear_btn))
+  }).append($clear_btn))*/
 
   function createSkinBlock(colors, callback) {
     var $block = $('<div />', {
@@ -423,4 +437,45 @@
     $('.product-image-thumb.active').removeClass('active');
     $(this).addClass('active');
   });
+
+
+
+  function change_skin() {
+
+    //菜单栏
+    if(ob.store('sidebar_skins')){
+      sidebar_skins.map(function (skin) {
+        $('.main-sidebar').removeClass(skin)
+      })
+      $('.main-sidebar').addClass(ob.store('sidebar_skins'))
+    }
+
+    //导航栏
+    if(ob.store('navbar-skins')){
+      var $main_header = $('.main-header')
+      $main_header.removeClass('navbar-dark').removeClass('navbar-light')
+      navbar_all_colors.map(function (color) {
+        $main_header.removeClass(color)
+      })
+      if (navbar_dark_skins.indexOf(ob.store('navbar-skins')) > -1) {
+        $main_header.addClass('navbar-dark')
+      } else {
+        $main_header.addClass('navbar-light')
+      }
+      $main_header.addClass(ob.store('navbar-skins'))
+    }
+
+    //事件超链接
+    if(ob.store('accent-color')){
+      accent_colors.map(function (skin) {
+        $('body').removeClass(skin)
+      })
+      $('body').addClass(ob.store('accent-color'));
+    }
+
+    return false;
+  }
+
+  change_skin();
+
 })(jQuery)
