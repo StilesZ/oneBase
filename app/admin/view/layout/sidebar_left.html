@@ -1,6 +1,6 @@
 
   <!-- 左侧导航栏 -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4">
 
     <!-- Brand Logo -->
     <a href="{:url('Index/index')}" class="brand-link">
@@ -16,7 +16,7 @@
           <img src="{$member_info['head_img_id']|get_head_picture_url}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block" data-toggle="modal" data-target="#modal-default">{$member_info['nickname']}</a>
+          <a href="#" class="d-block">{$member_info['nickname']}</a>
         </div>
       </div>
 
@@ -43,9 +43,13 @@
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
+
+    <div class="sidebar-custom">
+      <a href="{:url('member/editPassword')}" class="btn btn-link"><i class="fas fa-cogs"></i></a>
+      <a href="javascript:;"  class="btn btn-secondary hide-on-collapse pos-right logout" url="{:url('login/logout')}">安全退出</a>
+    </div>
+
   </aside>
-
-
 
   <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
