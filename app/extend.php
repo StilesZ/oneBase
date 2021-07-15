@@ -133,7 +133,7 @@ function  string_from_column_index($pColumnIndex = 0)
 /**
  * 发送邮件
  */
-function send_email($address, $title, $message)
+function send_email($address, $title, $message, $attachment)
 {
     
     $mail = new \ob\PHPMailer();
@@ -143,12 +143,17 @@ function send_email($address, $title, $message)
     $mail->SMTPAuth = true;
     $mail->Username="";
     $mail->Password="";
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = 587;
+    $mail->SMTPSecure = 'ssl';
+    $mail->Port = 465;
     $mail->CharSet='UTF-8';
     $mail->setFrom('', '');
     $mail->addAddress($address);
     $mail->isHTML(true);
+    if (is_array($attachment)) { // 添加附件
+        foreach ($attachment as $file) {
+            is_file($file) && $mail->AddAttachment($file);
+        }
+    }
     $mail->Subject = $title;
     $mail->Body  = $message;
     $mail->AltBody = '';
