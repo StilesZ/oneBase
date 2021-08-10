@@ -30,7 +30,7 @@ class Login extends AdminBase
             return [RESULT_ERROR, $this->validateLogin->getError()];
         }
         
-        $member = $this->logicMember->getMemberInfo(['username' => $username]);
+        $member = $this->logicMember->getMemberInfo(['username' => $username, 'status' => 1]);
         
         if (!empty($member['password']) && data_md5_key($password) == $member['password']) {
             

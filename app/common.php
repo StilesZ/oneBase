@@ -36,8 +36,8 @@ function is_login()
         
         return DATA_DISABLE;
     } else {
-        
-        return session('member_auth_sign') == data_auth_sign($member) ? $member['member_id'] : DATA_DISABLE;
+
+        return session('member_auth_sign') == data_auth_sign($member) && model('member')->where('status',1)->find($member['member_id']) ? $member['member_id'] : DATA_DISABLE;
     }
 }
 
