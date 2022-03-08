@@ -25,7 +25,8 @@ class TestLogic extends LogicBase
         // 实际业务流程处理
         
         // sf($data);
-        
+        echo '执行业务逻辑:' . $data['member_id'] . '\n';
+
         return true;
     }
 }
