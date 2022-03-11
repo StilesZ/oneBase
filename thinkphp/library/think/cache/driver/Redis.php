@@ -185,4 +185,53 @@ class Redis extends Driver
         return $this->handler->flushDB();
     }
 
+    /**
+     * 读取缓存
+     * @access public
+     * @param string $name 缓存变量名
+     * @param mixed  $default 默认值
+     * @return mixed
+     */
+    public function lpop($name, $default = false)
+    {
+        $value = $this->handler->lpop($this->getCacheKey($name));
+        if (is_null($value) || false === $value) {
+            return $default;
+        }
+
+        try {
+            $result = 0 === strpos($value, 'think_serialize:') ? unserialize(substr($value, 16)) : $value;
+        } catch (\Exception $e) {
+            $result = $default;
+        }
+
+        return $result;
+    }
+
+    /**
+     * 写入缓存
+     * @access public
+     * @param string            $name 缓存变量名
+     * @param mixed             $value  存储数据
+     * @param integer|\DateTime $expire  有效时间（秒）
+     * @return boolean
+     */
+    public function lpush($name, $value, $expire = null)
+    {
+        if (is_null($expire)) {
+            $expire = $this->options['expire'];
+        }
+        if ($expire instanceof \DateTime) {
+            $expire = $expire->getTimestamp() - time();
+        }
+        if ($this->tag && !$this->has($name)) {
+            $first = true;
+        }
+        $key   = $this->getCacheKey($name);
+
+        $result = $this->handler->lpush($key, $value);
+
+        isset($first) && $this->setTagItem($key);
+        return $result;
+    }
 }
