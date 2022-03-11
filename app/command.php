@@ -9,4 +9,6 @@
 // | Repository | https://gitee.com/Bigotry/OneBase                      |
 // +---------------------------------------------------------------------+
 
-return [];
+return [
+    'receive' => 'app\queue\controller\Receive'
+];

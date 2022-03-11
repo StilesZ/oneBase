@@ -1,132 +1,155 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'type' => 'project',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => '545f805edcd4272333f0558a1d7d51975d5e4a0d',
+        'name' => 'topthink/think',
+        'dev' => true,
     ),
-    'reference' => '8b7af7775a7dd211ce0ec3f0a20edae9c2aec793',
-    'name' => 'topthink/think',
-  ),
-  'versions' => 
-  array (
-    'aliyuncs/oss-sdk-php' => 
-    array (
-      'pretty_version' => 'v2.4.1',
-      'version' => '2.4.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '492866331b7bafaac09506cf42f351b7e9e63766',
+    'versions' => array(
+        'aliyuncs/oss-sdk-php' => array(
+            'pretty_version' => 'v2.4.1',
+            'version' => '2.4.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../aliyuncs/oss-sdk-php',
+            'aliases' => array(),
+            'reference' => '492866331b7bafaac09506cf42f351b7e9e63766',
+            'dev_requirement' => false,
+        ),
+        'firebase/php-jwt' => array(
+            'pretty_version' => 'v5.2.0',
+            'version' => '5.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../firebase/php-jwt',
+            'aliases' => array(),
+            'reference' => 'feb0e820b8436873675fd3aca04f3728eb2185cb',
+            'dev_requirement' => false,
+        ),
+        'php-amqplib/php-amqplib' => array(
+            'pretty_version' => 'v2.8.0',
+            'version' => '2.8.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-amqplib/php-amqplib',
+            'aliases' => array(),
+            'reference' => '7df8553bd8b347cf6e919dd4a21e75f371547aa0',
+            'dev_requirement' => false,
+        ),
+        'phpoffice/phpexcel' => array(
+            'pretty_version' => '1.8.2',
+            'version' => '1.8.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpoffice/phpexcel',
+            'aliases' => array(),
+            'reference' => '1441011fb7ecdd8cc689878f54f8b58a6805f870',
+            'dev_requirement' => false,
+        ),
+        'qiniu/php-sdk' => array(
+            'pretty_version' => 'v7.3.0',
+            'version' => '7.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../qiniu/php-sdk',
+            'aliases' => array(),
+            'reference' => '0a461e13b09545b23df361843c6a65fdd3a26426',
+            'dev_requirement' => false,
+        ),
+        'tecnickcom/tcpdf' => array(
+            'pretty_version' => '6.3.5',
+            'version' => '6.3.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
+            'aliases' => array(),
+            'reference' => '19a535eaa7fb1c1cac499109deeb1a7a201b4549',
+            'dev_requirement' => false,
+        ),
+        'topthink/framework' => array(
+            'pretty_version' => 'v5.1.41',
+            'version' => '5.1.41.0',
+            'type' => 'think-framework',
+            'install_path' => __DIR__ . '/../../thinkphp',
+            'aliases' => array(),
+            'reference' => '7137741a323a4a60cfca334507cd1812fac91bb2',
+            'dev_requirement' => false,
+        ),
+        'topthink/think' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '545f805edcd4272333f0558a1d7d51975d5e4a0d',
+            'dev_requirement' => false,
+        ),
+        'topthink/think-captcha' => array(
+            'pretty_version' => 'v1.0.7',
+            'version' => '1.0.7.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../topthink/think-captcha',
+            'aliases' => array(),
+            'reference' => '0c55455df26a1626a60d0dc35d2d89002b741d44',
+            'dev_requirement' => false,
+        ),
+        'topthink/think-image' => array(
+            'pretty_version' => 'v1.0.7',
+            'version' => '1.0.7.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../topthink/think-image',
+            'aliases' => array(),
+            'reference' => '8586cf47f117481c6d415b20f7dedf62e79d5512',
+            'dev_requirement' => false,
+        ),
+        'topthink/think-installer' => array(
+            'pretty_version' => 'v2.0.5',
+            'version' => '2.0.5.0',
+            'type' => 'composer-plugin',
+            'install_path' => __DIR__ . '/../topthink/think-installer',
+            'aliases' => array(),
+            'reference' => '38ba647706e35d6704b5d370c06f8a160b635f88',
+            'dev_requirement' => false,
+        ),
+        'topthink/think-queue' => array(
+            'pretty_version' => 'v1.0.0',
+            'version' => '1.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../topthink/think-queue',
+            'aliases' => array(),
+            'reference' => '5eaa66aa73741f544aa3e010cd787be55b20320c',
+            'dev_requirement' => false,
+        ),
+        'topthink/think-worker' => array(
+            'pretty_version' => 'v1.0.0',
+            'version' => '1.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../topthink/think-worker',
+            'aliases' => array(),
+            'reference' => 'f48ca8e5d8324aace15cdbf0f3de751397ef803f',
+            'dev_requirement' => false,
+        ),
+        'videlalvaro/php-amqplib' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => 'v2.8.0',
+            ),
+        ),
+        'workerman/workerman' => array(
+            'pretty_version' => 'v3.5.31',
+            'version' => '3.5.31.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../workerman/workerman',
+            'aliases' => array(),
+            'reference' => 'b73ddc45b3c7299f330923a2bde23ca6e974fd96',
+            'dev_requirement' => false,
+        ),
+        'workerman/workerman-for-win' => array(
+            'pretty_version' => 'v3.5.1',
+            'version' => '3.5.1.0',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../workerman/workerman-for-win',
+            'aliases' => array(),
+            'reference' => 'cbaae3193e4567fd9cfc8099931c63d9b12174ee',
+            'dev_requirement' => false,
+        ),
     ),
-    'firebase/php-jwt' => 
-    array (
-      'pretty_version' => 'v5.2.0',
-      'version' => '5.2.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'feb0e820b8436873675fd3aca04f3728eb2185cb',
-    ),
-    'phpoffice/phpexcel' => 
-    array (
-      'pretty_version' => '1.8.1',
-      'version' => '1.8.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '372c7cbb695a6f6f1e62649381aeaa37e7e70b32',
-    ),
-    'qiniu/php-sdk' => 
-    array (
-      'pretty_version' => 'v7.3.0',
-      'version' => '7.3.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '0a461e13b09545b23df361843c6a65fdd3a26426',
-    ),
-    'topthink/framework' => 
-    array (
-      'pretty_version' => 'v5.1.41',
-      'version' => '5.1.41.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '7137741a323a4a60cfca334507cd1812fac91bb2',
-    ),
-    'topthink/think' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '8b7af7775a7dd211ce0ec3f0a20edae9c2aec793',
-    ),
-    'topthink/think-captcha' => 
-    array (
-      'pretty_version' => 'v1.0.7',
-      'version' => '1.0.7.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '0c55455df26a1626a60d0dc35d2d89002b741d44',
-    ),
-    'topthink/think-image' => 
-    array (
-      'pretty_version' => 'v1.0.7',
-      'version' => '1.0.7.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '8586cf47f117481c6d415b20f7dedf62e79d5512',
-    ),
-    'topthink/think-installer' => 
-    array (
-      'pretty_version' => 'v2.0.5',
-      'version' => '2.0.5.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '38ba647706e35d6704b5d370c06f8a160b635f88',
-    ),
-    'topthink/think-queue' => 
-    array (
-      'pretty_version' => 'v1.0.0',
-      'version' => '1.0.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '5eaa66aa73741f544aa3e010cd787be55b20320c',
-    ),
-    'topthink/think-worker' => 
-    array (
-      'pretty_version' => 'v1.0.0',
-      'version' => '1.0.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'f48ca8e5d8324aace15cdbf0f3de751397ef803f',
-    ),
-    'workerman/workerman' => 
-    array (
-      'pretty_version' => 'v3.5.31',
-      'version' => '3.5.31.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'b73ddc45b3c7299f330923a2bde23ca6e974fd96',
-    ),
-    'workerman/workerman-for-win' => 
-    array (
-      'pretty_version' => 'v3.5.1',
-      'version' => '3.5.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'cbaae3193e4567fd9cfc8099931c63d9b12174ee',
-    ),
-  ),
 );

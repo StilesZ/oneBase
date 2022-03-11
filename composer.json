@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.0",
         "topthink/framework": "^5.0",
         "topthink/think-captcha": "^1.0",
         "topthink/think-image": "^1.0",
@@ -27,12 +27,16 @@
         "topthink/think-queue": "1.0",
         "topthink/think-worker": "1.0",
         "workerman/workerman-for-win": "3.5.1",
-        "tecnickcom/tcpdf": "^6.3"
+        "tecnickcom/tcpdf": "^6.3",
+        "php-amqplib/php-amqplib": "^2.8"
     },
     "extra": {
         "think-path": "thinkphp"
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "topthink/think-installer": true
+        }
     }
 }

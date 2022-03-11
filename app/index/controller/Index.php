@@ -62,8 +62,8 @@ class Index extends IndexBase
         $job_data["params"]             = ['xx' => 'cc', 'vv' => 'bb'];
 
         // 立即执行 job处理队列数据的类路径
-        $is_pushed = Queue::push("app\queue\controller\Test", $job_data, 'test_job_queue');
-        // 延时场景
+//        $is_pushed = Queue::push("app\queue\controller\Test", $job_data, 'test_job_queue');
+        // 延时场景 秒
         $is_pushed = Queue::later(10,"app\queue\controller\Test", $job_data, 'test_job_queue');
 
         if($is_pushed !== false ) {
