@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\queue\controller;
+namespace app\index\controller;
 
 
 use app\common\controller\ControllerBase;

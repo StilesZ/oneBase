@@ -10,5 +10,5 @@
 // +---------------------------------------------------------------------+
 
 return [
-    'receive' => 'app\queue\controller\Receive'
+    'receive' => 'app\command\Receive'
 ];

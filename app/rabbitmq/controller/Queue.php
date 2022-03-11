@@ -7,6 +7,7 @@ use app\common\controller\ControllerBase;
 
 class Queue extends ControllerBase
 {
+    //消费者
     public function index()
     {
 
@@ -54,6 +55,7 @@ class Queue extends ControllerBase
         $conn->disconnect();
     }
 
+    //生成者
     public function queueEvent($message)
     {
 
