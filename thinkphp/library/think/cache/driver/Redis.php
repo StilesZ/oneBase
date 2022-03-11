@@ -218,12 +218,7 @@ class Redis extends Driver
      */
     public function lpush($name, $value, $expire = null)
     {
-        if (is_null($expire)) {
-            $expire = $this->options['expire'];
-        }
-        if ($expire instanceof \DateTime) {
-            $expire = $expire->getTimestamp() - time();
-        }
+
         if ($this->tag && !$this->has($name)) {
             $first = true;
         }

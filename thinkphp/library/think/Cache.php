@@ -244,33 +244,4 @@ class Cache
         return self::init()->tag($name, $keys, $overlay);
     }
 
-    /**
-     * 弹出list缓存
-     * @access public
-     * @param  string   $name   缓存标识
-     * @param  mixed    $value  存储数据
-     * @param  int|null $expire 有效时间 0为永久
-     * @return boolean
-     */
-    public static function lpop($name, $default = false)
-    {
-        self::$readTimes++;
-
-        return self::init()->lpop($name, $default);
-    }
-
-    /**
-     * 写入list缓存
-     * @access public
-     * @param  string   $name   缓存标识
-     * @param  mixed    $value  存储数据
-     * @param  int|null $expire 有效时间 0为永久
-     * @return boolean
-     */
-    public static function lpush($name, $value, $expire = null)
-    {
-        self::$writeTimes++;
-
-        return self::init()->lpush($name, $value, $expire);
-    }
 }
