@@ -4,7 +4,6 @@
 namespace app\command;
 
 
-use PhpAmqpLib\Connection\AMQPStreamConnection;
 use rabbit\Client;
 use think\console\Command;
 use think\console\Input;

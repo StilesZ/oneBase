@@ -10,5 +10,6 @@
 // +---------------------------------------------------------------------+
 
 return [
-    'receive' => 'app\command\Receive'
+    'receive' => 'app\command\Receive',
+    'test:xxx' => 'app\command\rabbitMessage'
 ];
