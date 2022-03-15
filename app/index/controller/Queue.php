@@ -50,7 +50,7 @@ class Queue extends IndexBase
             $exchange,
             $routing_key,
             ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT],
-            ['retry_nums' => 3]// 设置重试次数
+            ['retry_nums' => 1]// 设置重试次数
         );
     }
 }
