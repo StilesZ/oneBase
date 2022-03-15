@@ -121,6 +121,12 @@ class Client
             $msg = $envelope->getBody();
             echo $msg."\n"; //处理消息
         }, AMQP_AUTOACK); //自动应答
+//        $queue->consume(function($envelope, $queue) {
+//            $msg = $envelope->getBody();
+//            //处理数据
+//            echo $msg . PHP_EOL; //处理消息
+//            $queue->ack($envelope->getDeliveryTag()); //手动发送ACK应答
+//        });
     }
 
     /**

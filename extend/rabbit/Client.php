@@ -23,7 +23,7 @@ class Client
      * RabbitMQTool constructor.
      * @param $mqName
      */
-    public function __construct($mqName= 'test')
+    private function __construct($mqName= 'test')
     {
         // 获取rabbitmq所有配置
         $rabbitMqConf = Config::get('rabbitmq.rabbit_mq');

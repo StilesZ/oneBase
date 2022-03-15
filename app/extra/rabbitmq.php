@@ -5,8 +5,8 @@ return [
     'rabbit_mq' => [
         'host' => 'localhost',
         'port' => 5672,
-        'user' => 'guest',
-        'pwd' => 'guest',
+        'user' => 'test',
+        'pwd' => '123',
         'vhost' => '/',
         'heartbeat' => 30,                  //心跳
         'rabbit_mq_queue' => [
