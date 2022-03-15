@@ -43,17 +43,6 @@ class Client
     }
 
     /**
-     * 使用析构函数关闭rabbitmq的连接
-     *
-     * @access public
-     */
-    public function __destruct(){
-        $conn = $this->conn;
-        $conn->disconnect(); //关闭连接
-        echo "成功关闭连接\n";
-    }
-
-    /**
      * 创建交换区与队列
      *
      * @access public
@@ -94,7 +83,7 @@ class Client
      * @return bool
      */
     public function producerMsg($msg = "测试了", $connName = "localhost", $routeKey ="collectorder.route"){
-        $this->connect($connName);
+//        $this->connect($connName);
         $channel = $this->channel;
         $config=Config::get('rabbitmq.'.$connName);
         $queue = $config["queue"][$routeKey];
@@ -118,7 +107,7 @@ class Client
      * @return bool
      */
     public function consumerMsg($connName = "localhost", $routeKey ="collectorder.route"){
-        $this->connect($connName);
+//        $this->connect($connName);
         $channel = $this->channel;
         $config=Config::get('rabbitmq.'.$connName);
         //创建队列
@@ -132,5 +121,16 @@ class Client
             $msg = $envelope->getBody();
             echo $msg."\n"; //处理消息
         }, AMQP_AUTOACK); //自动应答
+    }
+
+    /**
+     * 使用析构函数关闭rabbitmq的连接
+     *
+     * @access public
+     */
+    public function __destruct(){
+        $conn = $this->conn;
+        $conn->disconnect(); //关闭连接
+        echo "成功关闭连接\n";
     }
 }
