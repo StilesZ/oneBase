@@ -203,7 +203,7 @@ return [
     // +----------------------------------------------------------------------
 
     'session'                => [
-        'id'             => '',
+        'id'             => 'PHPSESSIDSRS',
         // SESSION_ID的提交变量,解决flash上传跨域
         'var_session_id' => '',
         // SESSION 前缀
@@ -212,6 +212,10 @@ return [
         'type'           => '',
         // 是否自动开启 SESSION
         'auto_start'     => true,
+        // 设置session 站点域名 session cookie_domain
+        'domain'         => 'luckbase.com',
+        // 是否使用cookie
+        'use_cookies'    => 0,
     ],
 
     // +----------------------------------------------------------------------
