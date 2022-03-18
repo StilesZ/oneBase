@@ -39,6 +39,8 @@ class RabbitMQ
         $this->connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password,
             $this->vhost);
         $this->channel = $this->connection->channel();
+
+        $this->setConfirm();
     }
 
     /**
@@ -90,6 +92,7 @@ class RabbitMQ
             }
         );
 
+        //开启确认模式
         $this->channel->confirm_select();
     }
 
@@ -183,7 +186,8 @@ class RabbitMQ
             $application_headers = new AMQPTable($headers);
             $data->set('application_headers', $application_headers);
         }
-
+        //添加监听
+        $this->channel->wait_for_pending_acks();
         $this->channel->basic_publish($data, $exchange, $routeKey);
     }
 
