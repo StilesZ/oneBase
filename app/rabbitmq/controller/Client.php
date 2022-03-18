@@ -69,6 +69,7 @@ class Client
             echo "连接名 ".$connName." 交换机名 ".$vo["exchange"]." 队列名 ".$vo["queue"]." 完成队列！ Message Total:".$queue->declareQueue()."\n";//查看，如果不存在则创建
 
             //rabbitmq不是直接发送到队列，发送到交换区，由交换区决定发给某个队列
+            //绑定交换机与队列，并指定路由键，可以多个路由键
             echo '队列绑定！: '.$queue->bind($vo["exchange"], $key)."\n"; //绑定路由
         }
     }

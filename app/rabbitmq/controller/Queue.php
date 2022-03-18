@@ -50,6 +50,7 @@ class Queue extends ControllerBase
                 echo $msg . PHP_EOL; //处理消息
                 $queue->ack($envelope->getDeliveryTag()); //手动发送ACK应答
             });
+            // function processMessage() 回调函数
             //$q->consume('processMessage', AMQP_AUTOACK); //自动ACK应答
         }
         $conn->disconnect();
@@ -74,12 +75,15 @@ class Queue extends ControllerBase
 
         //创建交换机
         $e_name = 'MQTT_device_event'; //交换机名
+        $k_route = 'key_event'; //路由key
         $ex = new \AMQPExchange($channel);
         $ex->setName($e_name);
 //        $ex->setType(AMQP_EX_TYPE_TOPIC); //direct类型
         $ex->setType(AMQP_EX_TYPE_DIRECT); //direct类型
         $ex->setFlags(AMQP_DURABLE); //持久化
         $ex->declareExchange();
+
+        $ex->publish(json_encode($message),$k_route);
     }
 
 }
