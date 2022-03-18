@@ -196,7 +196,7 @@ function addon_ioc($this_class, $name, $layer)
 function throw_response_exception($data = [], $type = 'json')
 {
     
-    $response = Response::create($data, $type);
+    $response = Response::create($data, $type, '401');
 
     throw new HttpResponseException($response);
 }
