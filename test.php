@@ -1,34 +1,32 @@
 <?php
-class abs{
-    private $name='dsad';
-    public function __construct(){
-//        $this->name;
-    }
-    public function __get($name)
-    {
-        return $this->name;
-    }
-}
-
-echo (new abs())->name;
+//class abs{
+//    private $name='dsad';
+//    public function __construct(){
+////        $this->name;
+//    }
+//    public function __get($name)
+//    {
+//        return $this->name;
+//    }
+//}
+//
+//echo (new abs())->name;
 
 $a=0;
 $i=0;
 while ($a<5){
-    echo $i++ . PHP_EOL;
+    echo 'i'.$i++ . PHP_EOL;
+    echo 'a'.$a . PHP_EOL;
     switch($a){
         case 0:
             $a=$a+2;
-            echo $a;
+            continue;
         case 2:
             $a=$a+3;
-            echo $a;
         case 5:
             $a=$a+5;
-            echo $a;
         default:
             $a=$a+4;
-            echo $a;
     }
 
 }

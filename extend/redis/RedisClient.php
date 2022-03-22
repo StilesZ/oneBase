@@ -49,7 +49,7 @@ class RedisClient
     }
 
     /**
-    * @return RedisPackage|null 对象
+    * @return RedisClient|null 对象
     */
     public static function getInstance()
     {
