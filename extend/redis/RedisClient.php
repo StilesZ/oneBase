@@ -7,15 +7,18 @@ use think\exception\ThrowableError;
 class RedisClient
 {
 
-    protected $options = [
-        'host' => '127.0.0.1',
-        'port' => 6379,
-        'password' => '',
-        'select' => 0,
-        'timeout' => 0,
-        'expire' => 0,
+    private $handler = null;
+    private static $_instance = null;
+
+    private $options = [
+        'host'       => '127.0.0.1',
+        'port'       => 6379,
+        'password'   => '',
+        'select'     => 0,
+        'timeout'    => 0,
+        'expire'     => 0,
         'persistent' => false,
-        'prefix' => '',
+        'prefix'     => '',
     ];
 
     /**
@@ -23,7 +26,7 @@ class RedisClient
      * @param array $options 缓存参数
      * @access public
      */
-    public function __construct($options = [])
+    private function __construct($options = [])
     {
         if (!extension_loaded('redis')) {
             throw new \BadFunctionCallException('not support: redis');
@@ -33,8 +36,7 @@ class RedisClient
         }
         $this->handler = new \Redis;
         if ($this->options['persistent']) {
-            $this->handler->pconnect($this->options['host'], $this->options['port'], $this->options['timeout'],
-                'persistent_id_' . $this->options['select']);
+            $this->handler->pconnect($this->options['host'], $this->options['port'], $this->options['timeout'], 'persistent_id_' . $this->options['select']);
         } else {
             $this->handler->connect($this->options['host'], $this->options['port'], $this->options['timeout']);
         }
@@ -47,6 +49,26 @@ class RedisClient
             $this->handler->select($this->options['select']);
         }
     }
+
+    /**
+    * @return RedisClient|null 对象
+    */
+    public static function getInstance()
+    {
+        if (!(self::$_instance instanceof self)) {
+            self::$_instance = new self();
+        }
+        return self::$_instance;
+    }
+
+    /**
+    * 禁止外部克隆
+    */
+    private function __clone()
+    {
+        trigger_error('Clone is not allow!',E_USER_ERROR);
+    }
+
 
     protected function getCacheKey($name)
     {
@@ -68,7 +90,7 @@ class RedisClient
      * 读取缓存
      * @access public
      * @param string $name 缓存变量名
-     * @param mixed $default 默认值
+     * @param mixed  $default 默认值
      * @return mixed
      */
     public function get($name, $default = false)
@@ -90,9 +112,9 @@ class RedisClient
     /**
      * 写入缓存
      * @access public
-     * @param string $name 缓存变量名
-     * @param mixed $value 存储数据
-     * @param integer|\DateTime $expire 有效时间（秒）
+     * @param string            $name 缓存变量名
+     * @param mixed             $value  存储数据
+     * @param integer|\DateTime $expire  有效时间（秒）
      * @return boolean
      */
     public function set($name, $value, $expire = null)
@@ -116,8 +138,8 @@ class RedisClient
     /**
      * 自增缓存（针对数值缓存）
      * @access public
-     * @param string $name 缓存变量名
-     * @param int $step 步长
+     * @param  string    $name 缓存变量名
+     * @param  int       $step 步长
      * @return false|int
      */
     public function inc($name, $step = 1)
@@ -130,8 +152,8 @@ class RedisClient
     /**
      * 自减缓存（针对数值缓存）
      * @access public
-     * @param string $name 缓存变量名
-     * @param int $step 步长
+     * @param  string    $name 缓存变量名
+     * @param  int       $step 步长
      * @return false|int
      */
     public function dec($name, $step = 1)
@@ -166,7 +188,7 @@ class RedisClient
      * 读取缓存
      * @access public
      * @param string $name 缓存变量名
-     * @param mixed $default 默认值
+     * @param mixed  $default 默认值
      * @return mixed
      */
     public function lpop($name, $default = false)
@@ -188,8 +210,8 @@ class RedisClient
     /**
      * 写入缓存
      * @access public
-     * @param string $name 缓存变量名
-     * @param mixed $value 存储数据
+     * @param string            $name 缓存变量名
+     * @param mixed             $value  存储数据
      * @return boolean
      */
     public function lpush($name, $value)
@@ -204,10 +226,9 @@ class RedisClient
 
     /**
      * 获取锁
-     * @param String $key 锁标识
-     * @param Int $expire 锁过期时间
-     * @param Int $num 重试次数
-     * @param Int $sleep 取锁间隔时间
+     * @param  String  $key    锁标识
+     * @param  Int     $expire 锁过期时间
+     * @param  Int     $num    重试次数
      * @return Boolean
      */
     public function lock($key, $expire = 5, $num = 0, $sleep = 1000000)
