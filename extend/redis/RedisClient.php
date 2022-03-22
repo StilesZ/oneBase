@@ -5,7 +5,10 @@ namespace redis;
 class RedisClient
 {
 
-    protected $options = [
+    private $handler = null;
+    private static $_instance = null;
+
+    private $options = [
         'host'       => '127.0.0.1',
         'port'       => 6379,
         'password'   => '',
@@ -21,7 +24,7 @@ class RedisClient
      * @param array $options 缓存参数
      * @access public
      */
-    public function __construct($options = [])
+    private function __construct($options = [])
     {
         if (!extension_loaded('redis')) {
             throw new \BadFunctionCallException('not support: redis');
@@ -44,6 +47,26 @@ class RedisClient
             $this->handler->select($this->options['select']);
         }
     }
+
+    /**
+    * @return RedisPackage|null 对象
+    */
+    public static function getInstance()
+    {
+        if (!(self::$_instance instanceof self)) {
+            self::$_instance = new self();
+        }
+        return self::$_instance;
+    }
+
+    /**
+    * 禁止外部克隆
+    */
+    private function __clone()
+    {
+        trigger_error('Clone is not allow!',E_USER_ERROR);
+    }
+
 
     protected function getCacheKey($name)
     {
