@@ -123,7 +123,7 @@ class RedisClient
         if ($expire instanceof \DateTime) {
             $expire = $expire->getTimestamp() - time();
         }
-        $key   = $this->getCacheKey($name);
+        $key = $this->getCacheKey($name);
         $value = is_scalar($value) ? $value : 'think_serialize:' . serialize($value);
         if ($expire) {
             $result = $this->handler->setex($key, $expire, $value);
@@ -215,7 +215,7 @@ class RedisClient
     public function lpush($name, $value)
     {
 
-        $key   = $this->getCacheKey($name);
+        $key = $this->getCacheKey($name);
 
         $result = $this->handler->lpush($key, $value);
 
@@ -229,16 +229,18 @@ class RedisClient
      * @param  Int     $num    重试次数
      * @return Boolean
      */
-    public function lock($key, $expire = 5, $num = 0){
-        $is_lock = $this->handler->set($key, time()+$expire, ['nx', 'ex' => $expire]);
+    public function lock($key, $expire = 5, $num = 0, $sleep = 1000000)
+    {
 
-        if(!$is_lock) {
+        $is_lock = $this->handler->setnx($key, time() + $expire);
+
+        if (!$is_lock) {
             //获取锁失败则重试{$num}次
-            for($i = 0; $i < $num; $i++){
+            for ($i = 0; $i < $num; $i++) {
 
-                $is_lock = $this->handler->set($key, time()+$expire, ['nx', 'ex' => $expire]);
+                $is_lock = $this->handler->setnx($key, time()+$expire);
 
-                if($is_lock){
+                if ($is_lock) {
                     break;
                 }
                 sleep(1);
@@ -246,33 +248,80 @@ class RedisClient
             }
         }
 
-
         // 不能获取锁
-        if(!$is_lock){
+        if (!$is_lock) {
 
             // 判断锁是否过期
             $lock_time = $this->handler->get($key);
 
             // 锁已过期，删除锁，重新获取
-            if(time()>$lock_time){
-                $this->handler->del($key);
-                $is_lock = $this->handler->set($key, time()+$expire, ['nx', 'ex' => $expire]);
+            if (time() > $lock_time) {
+                $this->unlock($key);
+                $is_lock = $this->handler->setnx($key, time() + $expire);
             }
         }
 
-        return $is_lock? true : false;
+        return $is_lock ? true : false;
 
-//              do {
+//        if (strlen($key) === 0) {
+//
+//            // 项目抛异常方法
+//            return ThrowableError(500, '缓存KEY没有设置');
+//
+//        }
+
+//        $lock_key = 'LOCK_PREFIX' . $key;
+        // $lock_key
+//        $start = self::getMicroTime();
+//
+//        do {
 //            // [1] 锁的 KEY 不存在时设置其值并把过期时间设置为指定的时间。锁的值并不重要。重要的是利用 Redis 的特性。
-//            $acquired = $this->handler->setnx($key, time()+$expire);
+//            $acquired = $this->handler->setnx($lock_key, 1);
 //            if ($acquired) {
 //                break;
 //            }
-//            if ($timeout === 0) {
+//            if ($num === 0) {
 //                break;
 //            }
 //            usleep($sleep);
-//        } while (!is_numeric($timeout) || (self::getMicroTime()) < ($start + ($timeout * 1000000)));
+//        } while (!is_numeric($num) || (self::getMicroTime()) < ($start + ($expire * 1000000)));
+//
+        // 防止死锁
+//        if($this->handler->ttl($lock_key) == -1){
+//            $this->handler->expire($lock_key, 5);
+//        }
+//        return $acquired ? true : false;
+    }
+
+    /**
+     * 释放锁
+     *
+     * @param mixed $key 被加锁的KEY。
+     * @return void
+     */
+
+    public function unlock($key)
+    {
+
+        $this->handler->del($key);
+
+    }
+
+    public function release($key)
+    {
+
+        if (strlen($key) === 0) {
+
+            // 项目抛异常方法
 
         }
+
+        $this->handler->del($key);
+
+    }
+
+    public static function getMicroTime()
+    {
+        return bcmul(microtime(true), 1000000);
+    }
 }
