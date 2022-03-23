@@ -28,7 +28,8 @@
         "topthink/think-worker": "1.0",
         "workerman/workerman-for-win": "3.5.1",
         "tecnickcom/tcpdf": "^6.3",
-        "php-amqplib/php-amqplib": "^2.8"
+        "php-amqplib/php-amqplib": "^2.8",
+        "topthink/think-testing": "1.*"
     },
     "extra": {
         "think-path": "thinkphp"

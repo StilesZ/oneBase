@@ -33,8 +33,9 @@ include 'HttpClient.class.php';
         {
                 $text="";
                 
-                while (list($key,$value) = each($data))
-                {
+//                while (list($key,$value) = each($data))
+                foreach ($data as $key => $value)
+                        {
                     if(isset($key) && $key!="hmac" && $key!="hmac_safe") 
                     {   
 
@@ -57,7 +58,8 @@ include 'HttpClient.class.php';
         {
                 $text="";
                 
-                while (list($key,$value) = each($data))
+//                while (list($key,$value) = each($data))
+                foreach ($data as $key => $value)
                 {
                     if( $key!="hmac" && $key!="hmac_safe" && $value !=null)
                     {
