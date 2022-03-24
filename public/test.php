@@ -23,20 +23,18 @@ $servers = [
 //    print "Lock not acquired\n";
 //}
 
-//use think\Cache;
-
-//$redis_p = Cache::store('redis')->handler();
+//$redis_p = \think\Cache::store('redis')->handler();
 $redisLock = \RedisLock::getInstance($servers);
 
 $pdo = new PDO('mysql:host=127.0.0.1;dbname=testredis', 'root', '123456');
 
-$goodsId = $_GET['goodsId'];//产品id
+$goodsId = $_REQUEST['goodsId'];//产品id
 $key = 'goods:'.$goodsId;
-$count = $_GET['count'];//购买量
+$count = $_REQUEST['count'];//购买量
 
-
+echo $count;
 // 设置库存 判断库存锁 坐等超时即可 不用解锁 限制更新频率
-$oj8k = $redisLock->lock($key, 5,10);
+$oj8k = $redisLock->lock($key, 15,10);
 $number=-1;
 if ($oj8k) {
    //允许设置库存 进行获取库存
@@ -60,8 +58,8 @@ $number = $res['number'];
 if($number>0)
 {
 
-$createTime = date('Y-m-d H:i:s');
-    $sql ="insert into `order`  VALUES ('',$number,'{$createTime}')";
+    $createTime = date('Y-m-d H:i:s');
+    $sql ="insert into `order`  VALUES ('211',$number,$count,'{$createTime}')";
     $order_id = $pdo->query($sql);
     if($order_id)
     {

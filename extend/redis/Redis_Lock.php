@@ -40,8 +40,11 @@ class RedisLock
     private $servers = [];
 
 
-    private function __construct()
+    private function __construct($servers)
     {
+
+        $this->initInstances($servers);
+
     }
 
     /**
@@ -54,9 +57,10 @@ class RedisLock
     public static function getInstance(array $servers)
     {
         if (!(self::$self instanceof self)) {
-            $self = new self();
+            $self = new self($servers);
 //            $self->redisObject = $redisObject;
-            $self->servers = $servers;
+//            $self->servers = $servers;
+//            self::initInstances($servers);
             self::$self = $self;
         }
         return self::$self;
@@ -65,16 +69,18 @@ class RedisLock
     /**
      * 初始化连接
      *
+     * @param array $servers
+     *
      * @return null|RedisLock
      */
-    private function initInstances()
+    private function initInstances(array $servers)
     {
         if (empty($self->redisObject)) {
-            foreach ($this->servers as $server) {
+            foreach ($servers as $server) {
                 list($host, $port, $timeout) = $server;
                 $redis = new \Redis();
                 $redis->connect($host, $port, $timeout);
-                $redis->auth('quantred');
+//                $redis->auth('quantred');
 //                $this->redisObject[] = $redis;
                 $this->redisObject = $redis;
             }
@@ -165,7 +171,7 @@ class RedisLock
 				redis.call('set', key,stock)
 			end
 			
-			--如果mysql传过来的为0 那么久将队列与库存全部重置！ 小于0 不做任何操作 标识不更改库存
+			--如果mysql传过来的为0 那么就将队列与库存全部重置！ 小于0 不做任何操作 标识不更改库存
 			if(stock == 0)
 			then
 				--更新redis库存为0
@@ -217,7 +223,7 @@ LUA;
      */
     public function getClientId()
     {
-        return $this->redisObject->client('id');
+        return $this->redisObject->client('getname');
     }
 
     /**
